@@ -1,3 +1,5 @@
+/*Entity is Database field setups page*/
+
 package com.crud.operation.Entity;
 
 import jakarta.persistence.Column;
