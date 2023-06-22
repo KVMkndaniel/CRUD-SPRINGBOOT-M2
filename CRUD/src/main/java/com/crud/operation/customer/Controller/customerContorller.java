@@ -1,63 +1,99 @@
-package com.crud.operation.customer.Controller;
+/*Entity is Database field setups page*/
 
-import java.util.List;
+package com.crud.operation.Entity;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.crud.operation.DTO.customerDTO;
-import com.crud.operation.DTO.customerSaveDTO;
-import com.crud.operation.DTO.customerUpdateDTO;
-import com.crud.operation.Service.customerService;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 
-@RestController
-@CrossOrigin      /*Angular , react thread part access annotation*/
-@RequestMapping(";api/v1/customer")  /* API worked path*/
-public class customerContorller {
+@Entity
+@Table(name = "customer")
+public class customer {
+
+	@Id
+	@Column(name = "customer_id" , length = 50)
+	@GeneratedValue(strategy = GenerationType.AUTO)  /*sql auto_increment annotation*/
+	private int customerid;
 	
+	@Column(name = "customer_name" , length = 50)
+	private String customername;
 	
-	@Autowired  /*Controller to requst handle and working this annotation*/
-	private customerService Customerservice ;
+	@Column(name = "customer_address" , length = 60)
+	private String customeraddress;
 	
-	
-	
-	
-	@PostMapping(path = "/save")
-	public String savecustomer(@RequestBody customerSaveDTO CustomerSaveDTO) {
-		
-		
-		String id = Customerservice.addCustomer(CustomerSaveDTO);
-		return id;
-		
+	@Column(name = "mobile" , length = 12)
+	private int mobile;
+
+	/**
+	 * @param customerid
+	 * @param customername
+	 * @param customeraddress
+	 * @param mobile
+	 */
+	public customer(int customerid, String customername, String customeraddress, int mobile) {
+		 super();
+		this.customerid = customerid;
+		this.customername = customername;
+		this.customeraddress = customeraddress;
+		this.mobile = mobile;
 	}
-	
 
-	@GetMapping(path = "/getAllcustomer")
-	public List<customerDTO> getAllcustomer() {
-		
-		List<customerDTO> allcustomer = Customerservice.getAllcustomer();
-		
-		return allcustomer;
-		
-		
-	}
-	
-	
-	@PostMapping(path = "/update")
-	public String savecustomer(@RequestBody customerUpdateDTO CustomerupdateDTO) {
-		
-		
-		String id = Customerservice.updatecustomer(CustomerupdateDTO);
-		return id;
-		
+	public customer() {
+
 	}
 	
 	
+	public customer(String customername, String customeraddress, int mobile) {
+		super();
+		this.customername = customername;
+		this.customeraddress = customeraddress;
+		this.mobile = mobile;
+	}
 
+	public int getCustomerid() {
+		return customerid;
+	}
+
+	public void setCustomerid(int customerid) {
+		this.customerid = customerid;
+	}
+
+	public String getCustomername() {
+		return customername;
+	}
+
+	public void setCustomername(String customername) {
+		this.customername = customername;
+	}
+
+	public String getCustomeraddress() {
+		return customeraddress;
+	}
+
+	public void setCustomeraddress(String customeraddress) {
+		this.customeraddress = customeraddress;
+	}
+
+	public int getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(int mobile) {
+		this.mobile = mobile;
+	}
+
+	@Override
+	public String toString() {
+		return "customer [customerid=" + customerid + ", customername=" + customername + ", customeraddress="
+				+ customeraddress + ", mobile=" + mobile + "]";
+	}
+	
+	
+	
+	
+	
 }
